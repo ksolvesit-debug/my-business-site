@@ -1,9 +1,653 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title>Coming Soon</title>
-  </head>
-  <body>
-    <h1>We're Almost Live</h1>
-  </body>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>GroundWork AI — Automation for Home Service Contractors</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --black:   #0d0d0d;
+      --dark:    #141414;
+      --card:    #1c1c1c;
+      --border:  #2a2a2a;
+      --orange:  #F76E2B;
+      --orange2: #ff9a5c;
+      --white:   #f4f2ee;
+      --muted:   #888;
+      --font-display: 'Barlow Condensed', sans-serif;
+      --font-body:    'DM Sans', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--black);
+      color: var(--white);
+      font-family: var(--font-body);
+      font-size: 16px;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 18px 5%;
+      background: rgba(13,13,13,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .logo {
+      font-family: var(--font-display);
+      font-size: 1.6rem; font-weight: 800;
+      letter-spacing: 0.04em;
+      color: var(--white);
+    }
+    .logo span { color: var(--orange); }
+    .nav-cta {
+      background: var(--orange);
+      color: #fff;
+      font-family: var(--font-body);
+      font-weight: 600;
+      font-size: 0.9rem;
+      padding: 10px 22px;
+      border: none; border-radius: 4px;
+      cursor: pointer; text-decoration: none;
+      transition: background 0.2s;
+    }
+    .nav-cta:hover { background: var(--orange2); }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 100vh;
+      display: flex; flex-direction: column; justify-content: center;
+      padding: 120px 5% 80px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-grid-bg {
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(247,110,43,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(247,110,43,0.04) 1px, transparent 1px);
+      background-size: 60px 60px;
+      pointer-events: none;
+    }
+    .hero-glow {
+      position: absolute; top: -200px; right: -200px;
+      width: 700px; height: 700px;
+      background: radial-gradient(circle, rgba(247,110,43,0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-tag {
+      display: inline-block;
+      font-size: 0.8rem; font-weight: 600;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--orange);
+      border: 1px solid rgba(247,110,43,0.35);
+      padding: 6px 14px; border-radius: 2px;
+      margin-bottom: 28px;
+      width: fit-content;
+      animation: fadeUp 0.6s ease both;
+    }
+    .hero-headline {
+      font-family: var(--font-display);
+      font-size: clamp(3.2rem, 8vw, 6.5rem);
+      font-weight: 800;
+      line-height: 1.0;
+      letter-spacing: -0.01em;
+      max-width: 900px;
+      animation: fadeUp 0.7s ease 0.1s both;
+    }
+    .hero-headline .accent { color: var(--orange); }
+    .hero-sub {
+      margin-top: 24px;
+      font-size: 1.15rem; font-weight: 300;
+      color: #bbb; max-width: 560px; line-height: 1.7;
+      animation: fadeUp 0.7s ease 0.2s both;
+    }
+    .hero-actions {
+      margin-top: 40px;
+      display: flex; gap: 16px; flex-wrap: wrap;
+      animation: fadeUp 0.7s ease 0.3s both;
+    }
+    .btn-primary {
+      background: var(--orange);
+      color: #fff; font-weight: 600; font-size: 1rem;
+      padding: 16px 36px; border: none; border-radius: 4px;
+      cursor: pointer; text-decoration: none;
+      transition: all 0.2s;
+      display: inline-block;
+    }
+    .btn-primary:hover {
+      background: var(--orange2);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(247,110,43,0.35);
+    }
+    .btn-ghost {
+      background: transparent;
+      color: var(--white); font-weight: 500; font-size: 1rem;
+      padding: 16px 36px;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      cursor: pointer; text-decoration: none;
+      transition: all 0.2s;
+      display: inline-block;
+    }
+    .btn-ghost:hover { border-color: var(--orange); color: var(--orange); }
+
+    .hero-stats {
+      margin-top: 64px;
+      display: flex; gap: 48px; flex-wrap: wrap;
+      animation: fadeUp 0.7s ease 0.4s both;
+      border-top: 1px solid var(--border);
+      padding-top: 40px;
+    }
+    .stat-item {}
+    .stat-num {
+      font-family: var(--font-display);
+      font-size: 2.4rem; font-weight: 800;
+      color: var(--orange); line-height: 1;
+    }
+    .stat-label {
+      font-size: 0.85rem; color: var(--muted);
+      margin-top: 4px; font-weight: 400;
+    }
+
+    /* ── PROBLEM ── */
+    #problem {
+      padding: 100px 5%;
+      background: var(--dark);
+      border-top: 1px solid var(--border);
+    }
+    .section-label {
+      font-size: 0.75rem; font-weight: 600;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--orange); margin-bottom: 16px;
+    }
+    .section-headline {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      font-weight: 700; line-height: 1.1;
+      max-width: 700px; margin-bottom: 20px;
+    }
+    .section-sub {
+      color: #999; font-size: 1rem; max-width: 560px;
+      line-height: 1.7; margin-bottom: 56px;
+    }
+    .problem-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 2px;
+    }
+    .problem-card {
+      background: var(--card);
+      padding: 36px 32px;
+      border: 1px solid var(--border);
+      transition: border-color 0.2s;
+    }
+    .problem-card:hover { border-color: var(--orange); }
+    .problem-icon {
+      font-size: 1.8rem; margin-bottom: 16px;
+    }
+    .problem-title {
+      font-family: var(--font-display);
+      font-size: 1.25rem; font-weight: 700;
+      margin-bottom: 10px; letter-spacing: 0.02em;
+    }
+    .problem-desc { font-size: 0.9rem; color: #888; line-height: 1.6; }
+
+    /* ── SOLUTIONS ── */
+    #solutions {
+      padding: 100px 5%;
+    }
+    .solutions-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 24px;
+      margin-top: 56px;
+    }
+    .solution-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 40px 36px;
+      transition: all 0.25s;
+      position: relative; overflow: hidden;
+    }
+    .solution-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0;
+      height: 3px; background: var(--orange);
+      transform: scaleX(0); transform-origin: left;
+      transition: transform 0.3s;
+    }
+    .solution-card:hover::before { transform: scaleX(1); }
+    .solution-card:hover {
+      border-color: rgba(247,110,43,0.3);
+      transform: translateY(-4px);
+    }
+    .solution-num {
+      font-family: var(--font-display);
+      font-size: 3rem; font-weight: 800;
+      color: rgba(247,110,43,0.15);
+      line-height: 1; margin-bottom: 16px;
+    }
+    .solution-title {
+      font-family: var(--font-display);
+      font-size: 1.4rem; font-weight: 700;
+      margin-bottom: 12px; letter-spacing: 0.02em;
+    }
+    .solution-desc { font-size: 0.92rem; color: #888; line-height: 1.65; }
+    .solution-tag {
+      margin-top: 24px;
+      display: inline-block;
+      font-size: 0.75rem; font-weight: 600;
+      color: var(--orange); letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    /* ── HOW IT WORKS ── */
+    #how {
+      padding: 100px 5%;
+      background: var(--dark);
+      border-top: 1px solid var(--border);
+    }
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 0;
+      margin-top: 56px;
+      border: 1px solid var(--border);
+    }
+    .step {
+      padding: 48px 36px;
+      border-right: 1px solid var(--border);
+      position: relative;
+    }
+    .step:last-child { border-right: none; }
+    .step-num {
+      font-family: var(--font-display);
+      font-size: 4rem; font-weight: 800;
+      color: var(--orange); line-height: 1;
+      margin-bottom: 20px; opacity: 0.9;
+    }
+    .step-title {
+      font-family: var(--font-display);
+      font-size: 1.3rem; font-weight: 700;
+      margin-bottom: 12px; letter-spacing: 0.02em;
+    }
+    .step-desc { font-size: 0.9rem; color: #888; line-height: 1.6; }
+
+    /* ── DEMO ── */
+    #demo {
+      padding: 100px 5%;
+    }
+    .demo-box {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 60px;
+      text-align: center;
+      position: relative; overflow: hidden;
+      margin-top: 40px;
+    }
+    .demo-box::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse at center, rgba(247,110,43,0.06) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .demo-box h3 {
+      font-family: var(--font-display);
+      font-size: 1.8rem; font-weight: 700;
+      margin-bottom: 12px;
+    }
+    .demo-box p { color: #888; margin-bottom: 32px; max-width: 480px; margin-left: auto; margin-right: auto; }
+    .demo-phone-mockup {
+      background: #0d0d0d;
+      border: 2px solid var(--border);
+      border-radius: 16px;
+      padding: 24px 20px;
+      max-width: 320px;
+      margin: 0 auto;
+      text-align: left;
+    }
+    .sms-bubble {
+      background: #1e1e1e;
+      border-radius: 12px 12px 12px 2px;
+      padding: 14px 18px;
+      font-size: 0.88rem;
+      color: #ccc;
+      margin-bottom: 10px;
+      line-height: 1.5;
+      border: 1px solid var(--border);
+    }
+    .sms-bubble.sent {
+      background: rgba(247,110,43,0.15);
+      border-color: rgba(247,110,43,0.25);
+      border-radius: 12px 12px 2px 12px;
+      color: var(--white);
+    }
+    .sms-label {
+      font-size: 0.7rem; color: var(--muted);
+      margin-bottom: 6px; text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    /* ── CTA ── */
+    #cta {
+      padding: 120px 5%;
+      background: var(--dark);
+      border-top: 1px solid var(--border);
+      text-align: center;
+      position: relative; overflow: hidden;
+    }
+    #cta::before {
+      content: '';
+      position: absolute; top: -300px; left: 50%; transform: translateX(-50%);
+      width: 800px; height: 600px;
+      background: radial-gradient(ellipse, rgba(247,110,43,0.1) 0%, transparent 65%);
+      pointer-events: none;
+    }
+    .cta-headline {
+      font-family: var(--font-display);
+      font-size: clamp(2.4rem, 5vw, 4.5rem);
+      font-weight: 800; line-height: 1.05;
+      max-width: 700px; margin: 0 auto 20px;
+    }
+    .cta-sub {
+      color: #999; font-size: 1.05rem;
+      max-width: 480px; margin: 0 auto 40px;
+      line-height: 1.7;
+    }
+
+    /* ── CONTACT FORM ── */
+    .contact-form {
+      max-width: 480px; margin: 0 auto;
+      display: flex; flex-direction: column; gap: 14px;
+    }
+    .contact-form input,
+    .contact-form select,
+    .contact-form textarea {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 14px 18px;
+      color: var(--white);
+      font-family: var(--font-body);
+      font-size: 0.95rem;
+      outline: none;
+      transition: border-color 0.2s;
+      width: 100%;
+    }
+    .contact-form input:focus,
+    .contact-form select:focus,
+    .contact-form textarea:focus {
+      border-color: var(--orange);
+    }
+    .contact-form textarea { resize: vertical; min-height: 100px; }
+    .contact-form select option { background: var(--card); }
+    .form-submit {
+      background: var(--orange);
+      color: #fff; font-weight: 700; font-size: 1.05rem;
+      padding: 18px; border: none; border-radius: 4px;
+      cursor: pointer; width: 100%;
+      font-family: var(--font-body);
+      letter-spacing: 0.03em;
+      transition: all 0.2s;
+    }
+    .form-submit:hover {
+      background: var(--orange2);
+      box-shadow: 0 8px 30px rgba(247,110,43,0.4);
+      transform: translateY(-2px);
+    }
+    .form-note {
+      font-size: 0.8rem; color: var(--muted);
+      margin-top: 8px; text-align: center;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      padding: 40px 5%;
+      border-top: 1px solid var(--border);
+      display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 16px;
+    }
+    .footer-logo {
+      font-family: var(--font-display);
+      font-size: 1.3rem; font-weight: 800;
+    }
+    .footer-logo span { color: var(--orange); }
+    .footer-note { font-size: 0.82rem; color: var(--muted); }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 640px) {
+      .steps { grid-template-columns: 1fr; }
+      .step { border-right: none; border-bottom: 1px solid var(--border); }
+      .step:last-child { border-bottom: none; }
+      .hero-stats { gap: 28px; }
+      .demo-box { padding: 36px 24px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="logo">Ground<span>Work</span> AI</div>
+  <a href="#cta" class="nav-cta">Get Started Free</a>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-grid-bg"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-tag">AI Automation for Contractors</div>
+  <h1 class="hero-headline">
+    Stop Losing Jobs<br>to <span class="accent">Missed Calls.</span>
+  </h1>
+  <p class="hero-sub">
+    GroundWork AI responds to every missed call instantly — day or night — so you never lose a lead to a competitor who picked up first.
+  </p>
+  <div class="hero-actions">
+    <a href="#cta" class="btn-primary">See It In Action →</a>
+    <a href="#how" class="btn-ghost">How It Works</a>
+  </div>
+  <div class="hero-stats">
+    <div class="stat-item">
+      <div class="stat-num">78%</div>
+      <div class="stat-label">of customers hire the first<br>contractor who responds</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">&lt;60s</div>
+      <div class="stat-label">Average response time<br>with GroundWork AI</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">24/7</div>
+      <div class="stat-label">Coverage — even when<br>you're on the job</div>
+    </div>
+  </div>
+</section>
+
+<!-- PROBLEM -->
+<section id="problem">
+  <div class="section-label">The Real Problem</div>
+  <h2 class="section-headline">You're great at the work.<br>The business side is killing you.</h2>
+  <p class="section-sub">You didn't start your business to answer phones, chase leads, and do paperwork. But that's where your time goes.</p>
+  <div class="problem-grid">
+    <div class="problem-card">
+      <div class="problem-icon">📵</div>
+      <div class="problem-title">Missed Calls = Missed Revenue</div>
+      <div class="problem-desc">You're on a job. The phone rings. They hang up and call the next guy. That's money walking out the door every day.</div>
+    </div>
+    <div class="problem-card">
+      <div class="problem-icon">🕐</div>
+      <div class="problem-title">No Time to Follow Up</div>
+      <div class="problem-desc">By the time you're done for the day the lead is cold. Manual follow-up is exhausting and it almost never happens.</div>
+    </div>
+    <div class="problem-card">
+      <div class="problem-icon">📋</div>
+      <div class="problem-title">Admin Eating Your Evenings</div>
+      <div class="problem-desc">Invoices, scheduling, confirmations — it all piles up after hours. You're running the business, not building it.</div>
+    </div>
+    <div class="problem-card">
+      <div class="problem-icon">⭐</div>
+      <div class="problem-title">Reviews Not Coming In</div>
+      <div class="problem-desc">Happy customers forget to leave reviews. Competitors with more reviews are winning jobs that should be yours.</div>
+    </div>
+  </div>
+</section>
+
+<!-- SOLUTIONS -->
+<section id="solutions">
+  <div class="section-label">What We Build For You</div>
+  <h2 class="section-headline">Automation that works<br>while you do.</h2>
+  <p class="section-sub">Simple, reliable systems built specifically for contractors. No complicated software. No monthly SaaS fees. Just results.</p>
+  <div class="solutions-grid">
+    <div class="solution-card">
+      <div class="solution-num">01</div>
+      <div class="solution-title">Missed Call Text-Back</div>
+      <div class="solution-desc">The moment a call goes unanswered, your customer gets an instant personalized text. You stay in the running without lifting a finger.</div>
+      <div class="solution-tag">Most Popular →</div>
+    </div>
+    <div class="solution-card">
+      <div class="solution-num">02</div>
+      <div class="solution-title">Lead Follow-Up Sequences</div>
+      <div class="solution-desc">Automated follow-up texts and emails that nurture leads until they're ready to book — without you having to remember to check in.</div>
+      <div class="solution-tag">Recovers Lost Leads →</div>
+    </div>
+    <div class="solution-card">
+      <div class="solution-num">03</div>
+      <div class="solution-title">Review Request Automation</div>
+      <div class="solution-desc">After every job, your customers get a friendly message asking for a review. More 5-stars. More trust. More new customers finding you.</div>
+      <div class="solution-tag">Builds Reputation →</div>
+    </div>
+    <div class="solution-card">
+      <div class="solution-num">04</div>
+      <div class="solution-title">Appointment Confirmations</div>
+      <div class="solution-desc">No-shows cost you time and money. Automated reminders keep jobs on the books and customers informed without any back-and-forth.</div>
+      <div class="solution-tag">Cuts No-Shows →</div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section id="how">
+  <div class="section-label">The Process</div>
+  <h2 class="section-headline">Up and running in 3 steps.</h2>
+  <p class="section-sub">No tech skills needed on your end. We handle everything from setup to launch.</p>
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">01</div>
+      <div class="step-title">We Talk</div>
+      <div class="step-desc">Tell us about your business, your biggest pain points, and what you want to fix first. 30 minutes, no pressure.</div>
+    </div>
+    <div class="step">
+      <div class="step-num">02</div>
+      <div class="step-title">We Build</div>
+      <div class="step-desc">We set up your automation system, customize it to your business, and test everything before going live.</div>
+    </div>
+    <div class="step">
+      <div class="step-num">03</div>
+      <div class="step-title">It Works</div>
+      <div class="step-desc">You go back to doing the work you're great at. The system runs in the background, capturing leads and saving you time every day.</div>
+    </div>
+  </div>
+</section>
+
+<!-- LIVE DEMO -->
+<section id="demo">
+  <div class="section-label">Live Demo</div>
+  <h2 class="section-headline">See exactly what your<br>customer experiences.</h2>
+  <p class="section-sub">This is a real example of the missed call text-back in action. Instant. Professional. Effective.</p>
+  <div class="demo-box">
+    <h3>Missed Call Text-Back Demo</h3>
+    <p>Customer calls. You're on a job. This is what they receive — automatically.</p>
+    <div class="demo-phone-mockup">
+      <div class="sms-label">Customer misses your call</div>
+      <div class="sms-bubble">
+        📞 Missed call from: Mike's Plumbing (555-0192)
+      </div>
+      <div class="sms-label" style="margin-top:16px;">Instant auto-reply sent</div>
+      <div class="sms-bubble sent">
+        Hey! This is Mike from Mike's Plumbing. Sorry I missed you — I'm with a customer right now. I'll call you back shortly. Need urgent help? Reply here and I'll get to you ASAP. 🔧
+      </div>
+      <div class="sms-label" style="margin-top:16px;">Customer replies</div>
+      <div class="sms-bubble">
+        Perfect! No rush — just need a quote for a leaky faucet. Call when you're free 👍
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section id="cta">
+  <div class="section-label">Get Started</div>
+  <h2 class="cta-headline">Ready to stop losing leads?</h2>
+  <p class="cta-sub">Tell us about your business and we'll show you exactly what we'd build for you — free, no obligation.</p>
+  <form class="contact-form" onsubmit="handleSubmit(event)">
+    <input type="text" placeholder="Your Name" required />
+    <input type="text" placeholder="Business Name" required />
+    <input type="tel" placeholder="Phone Number" required />
+    <input type="email" placeholder="Email Address" required />
+    <select required>
+      <option value="" disabled selected>What's your biggest problem?</option>
+      <option>Missing too many calls</option>
+      <option>Leads not converting</option>
+      <option>Need more Google reviews</option>
+      <option>Too much admin work</option>
+      <option>All of the above</option>
+    </select>
+    <button type="submit" class="form-submit">Get My Free Strategy Call →</button>
+    <p class="form-note">No spam. No pressure. Just a real conversation about your business.</p>
+  </form>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Ground<span>Work</span> AI</div>
+  <div class="footer-note">Built for contractors. Powered by AI. © 2026 GroundWork AI.</div>
+</footer>
+
+<script>
+  function handleSubmit(e) {
+    e.preventDefault();
+    const btn = e.target.querySelector('.form-submit');
+    btn.textContent = '✓ Request Received — We\'ll Be In Touch!';
+    btn.style.background = '#2a7a2a';
+    btn.disabled = true;
+  }
+
+  // Scroll-triggered fade-in
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(el => {
+      if (el.isIntersecting) {
+        el.target.style.opacity = '1';
+        el.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.solution-card, .problem-card, .step').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(20px)';
+    el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+    observer.observe(el);
+  });
+</script>
+
+</body>
 </html>
