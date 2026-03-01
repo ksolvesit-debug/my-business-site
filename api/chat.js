@@ -5,9 +5,9 @@
 const OPENROUTER_API_KEY = process.env.OPENROUTER_API_KEY;
 
 const MODELS = {
-  simple:  'meta-llama/llama-3.2-3b-instruct:free',
-  medium:  'mistralai/mistral-7b-instruct:free',
-  complex: 'anthropic/claude-3-haiku-20240307'
+  simple:  'x-ai/grok-4.1-fast',
+  medium:  'x-ai/grok-4.1-fast',
+  complex: 'x-ai/grok-4.1-fast'
 };
 
 const SYSTEM_PROMPT = `You are Emily, a friendly and professional AI assistant for Valure — an AI automation agency that helps home service contractors (plumbers, electricians, HVAC technicians) eliminate repetitive work through custom AI automation.
