@@ -1570,6 +1570,189 @@
       .process__steps { grid-template-columns: 1fr; }
       .dashboard__grid { grid-template-columns: 1fr; }
     }
+
+    /* ============================================================
+   MODAL
+============================================================ */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.75);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  z-index: 999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity .3s ease, visibility .3s ease;
+}
+
+.modal-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.modal {
+  background: var(--bg-card);
+  border: 1px solid var(--border-bright);
+  border-radius: var(--r-xl);
+  padding: 2.75rem;
+  max-width: 480px;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+  transform: translateY(24px) scale(.97);
+  transition: transform .35s cubic-bezier(.4,0,.2,1);
+  box-shadow: var(--shadow-lg);
+}
+
+.modal-overlay.active .modal {
+  transform: translateY(0) scale(1);
+}
+
+/* Top gradient line */
+.modal::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--blue-bright), var(--violet-bright), transparent);
+}
+
+/* Ambient glow inside modal */
+.modal::after {
+  content: '';
+  position: absolute;
+  width: 300px; height: 300px;
+  background: radial-gradient(circle, rgba(37,99,235,.12), transparent 70%);
+  top: -100px; right: -80px;
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.modal__close {
+  position: absolute;
+  top: 1.125rem; right: 1.125rem;
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  background: rgba(255,255,255,.07);
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  font-size: 1rem;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  transition: background var(--ease), color var(--ease);
+  z-index: 1;
+  line-height: 1;
+}
+
+.modal__close:hover {
+  background: rgba(255,255,255,.13);
+  color: var(--white);
+}
+
+.modal__tag {
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  font-size: .75rem;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--blue-glow);
+  margin-bottom: 1rem;
+}
+
+.modal__tag::before {
+  content: '';
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--blue-bright);
+  box-shadow: 0 0 8px var(--blue-bright);
+}
+
+.modal__title {
+  font-size: 1.625rem;
+  font-weight: 900;
+  letter-spacing: -.03em;
+  line-height: 1.15;
+  color: var(--white);
+  margin-bottom: .875rem;
+  position: relative;
+  z-index: 1;
+}
+
+.modal__sub {
+  font-size: .9375rem;
+  color: var(--text-muted);
+  line-height: 1.7;
+  margin-bottom: 1.75rem;
+  position: relative;
+  z-index: 1;
+}
+
+.modal__cta {
+  width: 100%;
+  justify-content: center;
+  position: relative;
+  z-index: 1;
+}
+
+.modal__dismiss {
+  display: block;
+  text-align: center;
+  margin-top: 1rem;
+  font-size: .8125rem;
+  color: var(--text-sub);
+  cursor: pointer;
+  transition: color var(--ease);
+  background: none;
+  border: none;
+  width: 100%;
+  position: relative;
+  z-index: 1;
+}
+
+.modal__dismiss:hover { color: var(--text-muted); }
+
+.modal__perks {
+  display: flex;
+  flex-direction: column;
+  gap: .625rem;
+  margin-bottom: 1.75rem;
+  position: relative;
+  z-index: 1;
+}
+
+.modal__perk {
+  display: flex;
+  align-items: center;
+  gap: .75rem;
+  font-size: .875rem;
+  color: rgba(255,255,255,.7);
+}
+
+.modal__perk-icon {
+  width: 28px; height: 28px;
+  border-radius: var(--r-sm);
+  background: rgba(37,99,235,.15);
+  border: 1px solid rgba(37,99,235,.25);
+  display: grid;
+  place-items: center;
+  font-size: .8125rem;
+  flex-shrink: 0;
+}
+
+@media (max-width: 480px) {
+  .modal { padding: 2rem 1.5rem; }
+  .modal__title { font-size: 1.375rem; }
+}
+
+
   </style>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
@@ -2342,6 +2525,57 @@
       </div>
     </section>
 
+
+    <!-- ================================================================
+     MODAL — EXIT INTENT / TIMED
+================================================================ -->
+<div class="modal-overlay" id="modal-overlay" role="dialog"
+     aria-modal="true" aria-labelledby="modal-title">
+  <div class="modal">
+
+    <button class="modal__close" id="modal-close"
+            aria-label="Close modal">&#x2715;</button>
+
+    <div class="modal__tag">Limited Spots Available</div>
+
+    <h2 class="modal__title" id="modal-title">
+      Before You Go — Get a Free<br>
+      <span class="grad">Automation Audit</span>
+    </h2>
+
+    <p class="modal__sub">
+      In 30 minutes we'll show you exactly what's costing you time
+      and money — and what AI can fix. No pitch. No pressure.
+    </p>
+
+    <div class="modal__perks">
+      <div class="modal__perk">
+        <span class="modal__perk-icon" aria-hidden="true">⚡</span>
+        We identify your top 3 automation opportunities
+      </div>
+      <div class="modal__perk">
+        <span class="modal__perk-icon" aria-hidden="true">💰</span>
+        You get a clear ROI estimate — free
+      </div>
+      <div class="modal__perk">
+        <span class="modal__perk-icon" aria-hidden="true">📅</span>
+        First automation live within 14 days
+      </div>
+    </div>
+
+    <a href="#contact" class="btn btn--primary modal__cta" id="modal-cta">
+      <span>Book My Free Audit Call</span>
+      <span class="btn-arrow" aria-hidden="true">&#x2192;</span>
+    </a>
+
+    <button class="modal__dismiss" id="modal-dismiss">
+      No thanks, I don't want to save time
+    </button>
+
+  </div>
+</div>
+
+
   </main>
 
   <!-- ================================================================
@@ -2548,6 +2782,76 @@ function removeFormMessage() {
   const existing = document.getElementById('form-message');
   if (existing) existing.remove();
 }
+
+  /* ---- Modal ---- */
+(function() {
+  const overlay   = document.getElementById('modal-overlay');
+  const closeBtn  = document.getElementById('modal-close');
+  const dismissBtn= document.getElementById('modal-dismiss');
+  const ctaBtn    = document.getElementById('modal-cta');
+
+  let modalShown  = false;
+  let timerID     = null;
+
+  // Only show once per session
+  if (sessionStorage.getItem('modal-seen')) return;
+
+  function openModal() {
+    if (modalShown) return;
+    modalShown = true;
+    sessionStorage.setItem('modal-seen', '1');
+    overlay.classList.add('active');
+    document.body.style.overflow = 'hidden';
+    closeBtn.focus();
+  }
+
+  function closeModal() {
+    overlay.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+
+  // Trigger 1 — 30 second delay
+  timerID = setTimeout(openModal, 2000);
+
+  // Trigger 2 — Exit intent (mouse leaves viewport top)
+  document.addEventListener('mouseleave', function(e) {
+    if (e.clientY <= 0) openModal();
+  });
+
+  // Close handlers
+  closeBtn.addEventListener('click', closeModal);
+  dismissBtn.addEventListener('click', closeModal);
+
+  // CTA scrolls to contact and closes modal
+  ctaBtn.addEventListener('click', function(e) {
+    e.preventDefault();
+    closeModal();
+    const contact = document.getElementById('contact');
+    if (contact) {
+      setTimeout(() => {
+        window.scrollTo({
+          top: contact.getBoundingClientRect().top + window.scrollY - 80,
+          behavior: 'smooth'
+        });
+      }, 300);
+    }
+  });
+
+  // Click outside modal to close
+  overlay.addEventListener('click', function(e) {
+    if (e.target === overlay) closeModal();
+  });
+
+  // Escape key to close
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && overlay.classList.contains('active')) {
+      closeModal();
+    }
+  });
+})();
+
+
+
   </script>
 
 </body>
